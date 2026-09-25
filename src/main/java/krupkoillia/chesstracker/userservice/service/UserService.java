@@ -1,14 +1,10 @@
 package krupkoillia.chesstracker.userservice.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import krupkoillia.chesstracker.userservice.dto.ChangePasswordRequestDto;
 import krupkoillia.chesstracker.userservice.dto.UserResponseDto;
 import krupkoillia.chesstracker.userservice.mapper.UserMapper;
-import krupkoillia.chesstracker.userservice.model.User;
 import krupkoillia.chesstracker.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
