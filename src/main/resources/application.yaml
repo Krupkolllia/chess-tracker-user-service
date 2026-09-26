@@ -38,7 +38,12 @@ spring:
     enabled: false
     change-log: classpath:db/changelog/db.changelog-master.yaml
 
-
 security:
   gateway:
     secret: ${SHARED_GATEWAY_SECRET}
+
+  jwt:
+    public-key: classpath:keys/public.pem
+    private-key: classpath:keys/private.pem
+
+    expiration: ${JWT_EXPIRATION}
