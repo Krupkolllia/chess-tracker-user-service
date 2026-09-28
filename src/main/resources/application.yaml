@@ -18,6 +18,14 @@ spring:
   application:
     name: UserService
 
+  web:
+    error:
+      include-message: always
+      include-stacktrace: always
+
+  mvc:
+    log-resolved-exception: true
+
   config:
     import: optional:file:.env[.properties]
 

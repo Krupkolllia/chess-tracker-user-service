@@ -2,6 +2,7 @@ package krupkoillia.chesstracker.userservice.service;
 
 import java.util.Locale;
 import krupkoillia.chesstracker.userservice.dto.LoginRequestDto;
+import krupkoillia.chesstracker.userservice.dto.LoginResponseDto;
 import krupkoillia.chesstracker.userservice.dto.RegistrationRequestDto;
 import krupkoillia.chesstracker.userservice.dto.UserResponseDto;
 import krupkoillia.chesstracker.userservice.exception.EmailAlreadyInUseException;
@@ -51,7 +52,7 @@ public class AuthService {
     }
 
     @Transactional(readOnly = true)
-    public String login(LoginRequestDto requestDto) {
+    public LoginResponseDto login(LoginRequestDto requestDto) {
         String email = normalizeEmail(requestDto.email());
 
         Authentication authentication = authenticationManager.authenticate(
@@ -65,7 +66,9 @@ public class AuthService {
                     "Authentication principal is invalid");
         }
 
-        return jwtService.generateAccessToken(user.getId());
+        String accessToken = jwtService.generateAccessToken(user.getId());
+
+        return new LoginResponseDto(accessToken);
     }
 
     private String normalizeEmail(String email) {

@@ -75,7 +75,7 @@ public class SecurityConfig {
                         AnonymousAuthenticationFilter.class
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login", "/auth/register")
+                        .requestMatchers("/auth/login", "/auth/register", "/error")
                         .permitAll()
                         .anyRequest()
                         .authenticated()

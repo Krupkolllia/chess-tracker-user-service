@@ -23,7 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Setter
 @Accessors(chain = true)
 @SQLDelete(sql = "UPDATE users SET is_deleted = true WHERE id = ?")
-@SQLRestriction("is_delete = false")
+@SQLRestriction("is_deleted = false")
 @Table(name = "users")
 public class User implements UserDetails {
 
@@ -36,8 +36,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(nullable = false)
-    private String username;
+    @Column(name = "display_name", nullable = false)
+    private String displayName;
 
     @Column(nullable = false, unique = true)
     private String email;

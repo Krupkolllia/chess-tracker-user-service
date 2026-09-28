@@ -29,10 +29,10 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponseDto changeUsername(String username) {
+    public UserResponseDto changeDisplayName(String displayName) {
         User user = getUserFromSecurityContext();
 
-        user.setUsername(username);
+        user.setDisplayName(displayName);
 
         return userMapper.toDto(user);
     }

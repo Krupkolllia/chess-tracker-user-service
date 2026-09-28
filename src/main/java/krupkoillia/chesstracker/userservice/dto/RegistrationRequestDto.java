@@ -22,11 +22,11 @@ public record RegistrationRequestDto(
 
         @NotBlank
         @Size(min = 3, max = 24)
-        String username
+        String displayName
 ) {
 
     @AssertTrue(message = "Passwords do not match")
-    public boolean passwordsMatch() {
+    public boolean isPasswordsMatch() {
         return Objects.equals(password, confirmPassword);
     }
 
