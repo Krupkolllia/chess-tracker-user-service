@@ -3,10 +3,6 @@ server:
   servlet:
     context-path: /api
 
-logging:
-  level:
-    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
-
 springdoc:
   api-docs:
     path: /v3/api-docs
@@ -38,7 +34,12 @@ spring:
     enabled: false
     change-log: classpath:db/changelog/db.changelog-master.yaml
 
-
 security:
   gateway:
     secret: ${SHARED_GATEWAY_SECRET}
+
+  jwt:
+    public-key: classpath:keys/public.pem
+    private-key: classpath:keys/private.pem
+
+    expiration: ${JWT_EXPIRATION}

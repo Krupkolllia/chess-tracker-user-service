@@ -2,6 +2,6 @@ package krupkoillia.chesstracker.userservice.dto;
 
 public record UserResponseDto(
         Long id,
-        String username,
-        String email
+        String email,
+        String displayName
 ) {}

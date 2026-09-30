@@ -1,6 +1,7 @@
 package krupkoillia.chesstracker.userservice.mapper;
 
 import krupkoillia.chesstracker.userservice.config.MapStructConfig;
+import krupkoillia.chesstracker.userservice.dto.RegistrationRequestDto;
 import krupkoillia.chesstracker.userservice.dto.UserResponseDto;
 import krupkoillia.chesstracker.userservice.model.User;
 import org.mapstruct.Mapper;
@@ -9,5 +10,7 @@ import org.mapstruct.Mapper;
 public interface UserMapper {
 
     UserResponseDto toDto(User model);
+
+    User toModel(RegistrationRequestDto requestDto);
 
 }

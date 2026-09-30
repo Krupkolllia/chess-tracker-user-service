@@ -1,5 +1,6 @@
 HELP.md
 .env
+src/main/resources/keys/private.pem
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar

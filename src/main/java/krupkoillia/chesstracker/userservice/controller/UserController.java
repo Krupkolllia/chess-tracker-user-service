@@ -32,9 +32,9 @@ public class UserController {
     }
 
     @Operation(summary = "Change username")
-    @PutMapping("/me/username")
-    public UserResponseDto changeUsername(@RequestBody @NotBlank String username) {
-        return userService.changeUsername(username);
+    @PutMapping("/me/displayName")
+    public UserResponseDto changeDisplayName(@RequestBody @NotBlank String displayName) {
+        return userService.changeDisplayName(displayName);
     }
 
     @Operation(summary = "Change password")

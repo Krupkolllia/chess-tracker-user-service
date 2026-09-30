@@ -1,0 +1,14 @@
+spring:
+  liquibase:
+    enabled: false
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+security:
+  gateway:
+    secret: test-shared-gateway-secret
+
+  jwt:
+    public-key: classpath:keys/public.pem
+    private-key: classpath:keys/private.pem
+
+    expiration: 900000
