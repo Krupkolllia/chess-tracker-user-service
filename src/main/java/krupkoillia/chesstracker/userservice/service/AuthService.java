@@ -6,7 +6,6 @@ import krupkoillia.chesstracker.userservice.dto.LoginResponseDto;
 import krupkoillia.chesstracker.userservice.dto.RegistrationRequestDto;
 import krupkoillia.chesstracker.userservice.dto.UserResponseDto;
 import krupkoillia.chesstracker.userservice.exception.EmailAlreadyInUseException;
-import krupkoillia.chesstracker.userservice.exception.InvalidAuthenticationPrincipalException;
 import krupkoillia.chesstracker.userservice.mapper.UserMapper;
 import krupkoillia.chesstracker.userservice.model.User;
 import krupkoillia.chesstracker.userservice.repository.UserRepository;
@@ -62,7 +61,7 @@ public class AuthService {
         );
 
         if (!(authentication.getPrincipal() instanceof User user)) {
-            throw new InvalidAuthenticationPrincipalException(
+            throw new IllegalStateException(
                     "Authentication principal is invalid");
         }
 

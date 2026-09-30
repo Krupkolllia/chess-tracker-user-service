@@ -3,10 +3,6 @@ server:
   servlet:
     context-path: /api
 
-logging:
-  level:
-    org.springframework.security: TRACE
-
 springdoc:
   api-docs:
     path: /v3/api-docs
@@ -17,14 +13,6 @@ springdoc:
 spring:
   application:
     name: UserService
-
-  web:
-    error:
-      include-message: always
-      include-stacktrace: always
-
-  mvc:
-    log-resolved-exception: true
 
   config:
     import: optional:file:.env[.properties]
