@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,11 +31,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponse(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 
-    @ExceptionHandler(AuthenticatedUserNotFoundException.class)
+    @ExceptionHandler({
+        AuthenticatedUserNotFoundException.class,
+        AuthenticationException.class
+    })
     public ResponseEntity<ErrorResponse> handleUnauthorized(
-            AuthenticatedUserNotFoundException e, HttpServletRequest request
+            RuntimeException e, HttpServletRequest request
     ) {
-        return buildResponse(HttpStatus.UNAUTHORIZED, e.getMessage());
+        return buildResponse(HttpStatus.UNAUTHORIZED, "Invalid email or password");
     }
 
     @ExceptionHandler(EmailAlreadyInUseException.class)

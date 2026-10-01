@@ -3,7 +3,7 @@ package krupkoillia.chesstracker.userservice.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
+import krupkoillia.chesstracker.userservice.dto.ChangeDisplayNameRequestDto;
 import krupkoillia.chesstracker.userservice.dto.ChangePasswordRequestDto;
 import krupkoillia.chesstracker.userservice.dto.UserResponseDto;
 import krupkoillia.chesstracker.userservice.service.UserService;
@@ -33,8 +33,9 @@ public class UserController {
 
     @Operation(summary = "Change username")
     @PutMapping("/me/displayName")
-    public UserResponseDto changeDisplayName(@RequestBody @NotBlank String displayName) {
-        return userService.changeDisplayName(displayName);
+    public UserResponseDto changeDisplayName(
+            @RequestBody @Valid ChangeDisplayNameRequestDto requestDto) {
+        return userService.changeDisplayName(requestDto.displayName());
     }
 
     @Operation(summary = "Change password")
