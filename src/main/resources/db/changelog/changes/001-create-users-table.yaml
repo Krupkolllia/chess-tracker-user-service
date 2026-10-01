@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-users-table
+      author: Krupko Illia
+
+      changes:
+        - createTable:
+            tableName: users
+
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: display_name
+                  type: VARCHAR(24)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: email
+                  type: VARCHAR(254)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: is_deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+
+        - createSequence:
+            sequenceName: users_seq
+            startValue: 1
+            incrementBy: 50
+
+        - sql:
+            sql: CREATE UNIQUE INDEX uqi_users_email_is_deleted ON users (email) WHERE is_deleted = false
