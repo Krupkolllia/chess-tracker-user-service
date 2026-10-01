@@ -27,13 +27,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "users")
 public class User implements UserDetails {
 
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "users_seq"
+    )
     @SequenceGenerator(
             name = "users_seq",
             sequenceName = "users_seq",
             allocationSize = 50
     )
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "display_name", nullable = false)
