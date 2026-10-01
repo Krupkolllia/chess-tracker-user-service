@@ -36,7 +36,7 @@ public class AuthService {
     public UserResponseDto register(RegistrationRequestDto requestDto) {
         String email = normalizeEmail(requestDto.email());
 
-        if (userRepository.existsByEmail(requestDto.email())) {
+        if (userRepository.existsByEmail(email)) {
             throw new EmailAlreadyInUseException(
                     "An account with this email already exists");
         }
