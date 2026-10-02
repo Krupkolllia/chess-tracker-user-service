@@ -9,12 +9,14 @@ import krupkoillia.chesstracker.userservice.model.User;
 import krupkoillia.chesstracker.userservice.repository.UserRepository;
 import krupkoillia.chesstracker.userservice.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
 
     private final PasswordEncoder passwordEncoder;
@@ -34,6 +36,11 @@ public class UserService {
 
         user.setDisplayName(displayName);
 
+        log.info(
+                "User display name changed: userId={}",
+                user.getId()
+        );
+
         return userMapper.toDto(user);
     }
 
@@ -47,11 +54,23 @@ public class UserService {
 
         user.setPassword(passwordEncoder.encode(requestDto.newPassword()));
 
+        log.info(
+                "User password changed: userId={}",
+                user.getId()
+        );
+
     }
 
     @Transactional
     public void delete() {
-        userRepository.delete(getUserFromSecurityContext());
+        User user = getUserFromSecurityContext();
+
+        userRepository.delete(user);
+
+        log.info(
+                "User deleted: userId={}",
+                user.getId()
+        );
     }
 
     private User getUserFromSecurityContext() {

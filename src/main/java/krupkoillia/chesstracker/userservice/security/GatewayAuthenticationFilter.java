@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -15,6 +16,7 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedA
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+@Slf4j
 @Component
 public class GatewayAuthenticationFilter extends OncePerRequestFilter {
 
@@ -32,6 +34,11 @@ public class GatewayAuthenticationFilter extends OncePerRequestFilter {
         String gatewaySecretFromHeader = request.getHeader(GATEWAY_SECRET_HEADER_NAME);
 
         if (!Objects.equals(gatewaySecretFromHeader, gatewaySecret)) {
+            log.warn(
+                    "Gateway authentication failed: method={}, uri={}",
+                    request.getMethod(),
+                    request.getRequestURI()
+            );
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
@@ -45,6 +52,11 @@ public class GatewayAuthenticationFilter extends OncePerRequestFilter {
         try {
             userId = Long.parseLong(userIdFromHeader);
         } catch (NumberFormatException e) {
+            log.warn(
+                    "Invalid user ID header: method={}, uri={}",
+                    request.getMethod(),
+                    request.getRequestURI()
+            );
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
@@ -63,6 +75,11 @@ public class GatewayAuthenticationFilter extends OncePerRequestFilter {
         securityContext.setAuthentication(authentication);
 
         SecurityContextHolder.setContext(securityContext);
+
+        log.debug(
+                "Gateway authentication successful: userId={}",
+                userId
+        );
 
         filterChain.doFilter(request, response);
 
