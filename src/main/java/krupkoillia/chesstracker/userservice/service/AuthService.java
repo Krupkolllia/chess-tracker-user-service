@@ -11,6 +11,7 @@ import krupkoillia.chesstracker.userservice.model.User;
 import krupkoillia.chesstracker.userservice.repository.UserRepository;
 import krupkoillia.chesstracker.userservice.security.JwtService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthService {
 
     private final AuthenticationManager authenticationManager;
@@ -47,6 +49,11 @@ public class AuthService {
 
         userRepository.save(user);
 
+        log.info(
+                "User registered successfully: userId={}",
+                user.getId()
+        );
+
         return userMapper.toDto(user);
     }
 
@@ -66,6 +73,11 @@ public class AuthService {
         }
 
         String accessToken = jwtService.generateAccessToken(user.getId());
+
+        log.info(
+                "User authenticated successfully: userId={}",
+                user.getId()
+        );
 
         return new LoginResponseDto(accessToken);
     }
