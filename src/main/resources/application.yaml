@@ -10,6 +10,12 @@ springdoc:
   swagger-ui:
     path: /swagger-ui
 
+management:
+  otlp:
+    metrics:
+      export:
+        enabled: false
+
 spring:
   application:
     name: UserService
